@@ -78,11 +78,17 @@ async def handle_join_request(join_request: types.ChatJoinRequest):
     )
 
     # Отправляем сообщение с кнопкой
-    await bot.send_message(
+    send_msg = await bot.send_message(
         chat_id=user.id,
         text=f"Подтвердите что вы не робот 🤖",
         reply_markup=reply_markup
     )
+    await asyncio.sleep(60)
+    try:
+        # Удаляем сообщение с кнопкой "Подтвердить"
+        await send_msg.delete()
+    except Exception as e:
+        pass
 
 
 # Обработка нажатия кнопки "Подписаться"
